@@ -22,39 +22,80 @@
         renderer.shadowMapEnabled = true;
 
         // position and point the camera to the center of the scene
-        camera.position.x = 25;
-        camera.position.y = 16;
-        camera.position.z = 0;
-        camera.lookAt(scene.position);
+        
+        camera.position.x = 200;
+        camera.position.y = 50;
+        camera.position.z = 40;
 
         // add the output of the renderer to the html element
         document.body.appendChild(renderer.domElement);
 
-        // create the chess board
+        var caseString = 'case ';
+        var middleCase;
+        var chessCaseColor;
+        for(var i = 0; i < 8; i++)
+        {
+            for(var j=0; j < 8; j++)
+            {
+                if(i == 0 || i == 2 || i == 4 || i == 6) {
+                    if(j == 0 || j == 2 || j == 4 || j == 6) {
+                        chessCaseColor = 'white';
+                    }
+                    else
+                        chessCaseColor = 'black';
+                }
+                else {
+                    if(j == 0 || j == 2 || j == 4 || j == 6) {
+                        chessCaseColor = 'black';
+                    }
+                    else
+                        chessCaseColor = 'white';
+                }
 
-        var boardGeometry = new THREE.PlaneGeometry(20, 20);
-        var boardMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});
-        var chessboard = new THREE.Mesh(boardGeometry, boardMaterial);
-        chessboard.receiveShadow = true;
-
-        // rotate and position the plane
-        chessboard.rotation.x = -0.5 * Math.PI;
-        chessboard.position.x = 0;
-        chessboard.position.y = -2;
-        chessboard.position.z = 0;
-
-        // add the plane to the scene
-        scene.add(chessboard);
-
-
-
+                 var chessCaseGeometry  = new THREE.BoxGeometry(10,2,10);
+                 var chessCaseMaterial = new THREE.MeshLambertMaterial({color: chessCaseColor, ambient : chessCaseColor});
+                 var chessCase = new THREE.Mesh(chessCaseGeometry, chessCaseMaterial);
+                 chessCase.position.x = 10*j;
+                 chessCase.position.y = 0;
+                 chessCase.position.z = 10*i;
+                 chessCase.castShadow = false;
+                 if(i == 4 & j == 4)
+                 {
+                    middleCase = chessCase;
+                 }
+                 chessCase.name = 'case ' + i + ' et ' + j;
+                 scene.add(chessCase);
+            }
+        }
+        camera.lookAt(middleCase.position);
+/*
         var spotLight = new THREE.SpotLight(0xffffff);
-        spotLight.position.set(10, 20, 20);
-        spotLight.shadowCameraNear = 20;
-        spotLight.shadowCameraFar = 50;
+        spotLight.position.set(300, 20, 20);
+        spotLight.shadowCameraNear = 200;
+        spotLight.shadowCameraFar = 500;
         spotLight.castShadow = true;
 
         scene.add(spotLight);
+
+        var spotLightTop = new THREE.SpotLight(0xffffff);
+        spotLightTop.position.set(150, 50, 48);
+        spotLightTop.shadowCameraNear = 200;
+        spotLightTop.shadowCameraFar = 500;
+        spotLightTop.castShadow = true;
+
+        scene.add(spotLightTop);
+*/
+
+
+        var ambientLight = new THREE.AmbientLight(0xffffff);
+        ambientLight.position.set(10, 20, 20);
+        ambientLight.shadowCameraNear = 20;
+        ambientLight.shadowCameraFar = 50;
+        //ambientLight.castShadow = true;
+
+        scene.add(ambientLight);
+
+        
 
         // call the render function, after the first render, interval is determined
         // by requestAnimationFrame
