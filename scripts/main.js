@@ -17,14 +17,14 @@
 
         // create a render, sets the background color and the size
         renderer = new THREE.WebGLRenderer();
-        renderer.setClearColor(0x000000, 1.0);
+        renderer.setClearColor(0xdddddd, 1.0);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.shadowMapEnabled = true;
 
         // position and point the camera to the center of the scene
-        camera.position.x = 15;
+        camera.position.x = 25;
         camera.position.y = 16;
-        camera.position.z = 13;
+        camera.position.z = 0;
         camera.lookAt(scene.position);
 
         // add the output of the renderer to the html element
