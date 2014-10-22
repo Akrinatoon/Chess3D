@@ -31,6 +31,7 @@
         document.body.appendChild(renderer.domElement);
 
         // add a wood table
+<<<<<<< HEAD
         //var tableLoader = new THREE.JSONLoader();
         //var tableTextture = THREE.ImageUtils.loadTexture("Pictures/flame.png");
         //tableLoader.load("scripts/table.js", function (geometry) {
@@ -51,6 +52,15 @@
         table.name = 'table';
         scene.add(table);
 
+=======
+        var tableLoader = new THREE.JSONLoader();
+        tableLoader.load("scripts/table.js", function (geometry) {
+            var material = new THREE.MeshLambertMaterial({color:'yellow', ambient:'yellow'});
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh)
+        });
+       
+>>>>>>> 9cf4d1b2f14866a708fbcfca042cca9155d0126d
         var caseString = 'case ';
         var middleCase;
         var chessCaseColor;
