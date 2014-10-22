@@ -30,7 +30,6 @@
         // add the output of the renderer to the html element
         document.body.appendChild(renderer.domElement);
 
-<<<<<<< HEAD
         // add a wood table
         var tableLoader = new THREE.JSONLoader();
         tableLoader.load("scripts/table.js", function (geometry) {
@@ -39,8 +38,6 @@
             scene.add(mesh)
         });
        
-=======
->>>>>>> origin/master
         var caseString = 'case ';
         var middleCase;
         var chessCaseColor;
@@ -85,31 +82,8 @@
         spotLight.shadowCameraNear = 200;
         spotLight.shadowCameraFar = 500;
         spotLight.castShadow = true;
-<<<<<<< HEAD
-=======
 
         scene.add(spotLight);
-
-        var spotLightTop = new THREE.SpotLight(0xffffff);
-        spotLightTop.position.set(150, 50, 48);
-        spotLightTop.shadowCameraNear = 200;
-        spotLightTop.shadowCameraFar = 500;
-        spotLightTop.castShadow = true;
-
-        scene.add(spotLightTop);
-*/
-
-
-        var ambientLight = new THREE.AmbientLight(0xffffff);
-        ambientLight.position.set(10, 20, 20);
-        ambientLight.shadowCameraNear = 20;
-        ambientLight.shadowCameraFar = 50;
-        //ambientLight.castShadow = true;
-
-        scene.add(ambientLight);
->>>>>>> origin/master
-
-        
 
         var spotLightTop = new THREE.SpotLight(0xffffff);
         spotLightTop.position.set(150, 50, 48);
