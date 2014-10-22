@@ -22,39 +22,143 @@
         renderer.shadowMapEnabled = true;
 
         // position and point the camera to the center of the scene
-        camera.position.x = 25;
-        camera.position.y = 16;
-        camera.position.z = 0;
-        camera.lookAt(scene.position);
+        
+        camera.position.x = 200;
+        camera.position.y = 50;
+        camera.position.z = 40;
 
         // add the output of the renderer to the html element
         document.body.appendChild(renderer.domElement);
 
-        // create the chess board
+        // add a wood table
+        //var tableLoader = new THREE.JSONLoader();
+        //var tableTextture = THREE.ImageUtils.loadTexture("Pictures/flame.png");
+        //tableLoader.load("scripts/table.js", function (geometry) {
+        //    var material = new THREE.MeshLambertMaterial({ map: tableTextture, ambient:"yellow"});
+        //    //var material = new THREE.MeshLambertMaterial({ color:"yellow", ambient:"yellow"});
+        //    mesh = new THREE.Mesh(geometry, material);
+        //    scene.add(mesh)
+        //});
+       
+        var tableTextture = THREE.ImageUtils.loadTexture("Pictures/wood-texture.jpg");
+        var tableGeometry = new THREE.BoxGeometry(200, 0, 200);
+        var tableMaterial = new THREE.MeshLambertMaterial({ map:tableTextture });
+        var table = new THREE.Mesh(tableGeometry, tableMaterial);
+        table.position.x = 20;
+        table.position.y = 0;
+        table.position.z = 20;
+        table.castShadow = false;
+        table.name = 'table';
+        scene.add(table);
 
-        var boardGeometry = new THREE.PlaneGeometry(20, 20);
-        var boardMaterial = new THREE.MeshLambertMaterial({color: 0xcccccc});
-        var chessboard = new THREE.Mesh(boardGeometry, boardMaterial);
-        chessboard.receiveShadow = true;
+        var caseString = 'case ';
+        var middleCase;
+        var chessCaseColor;
+        for(var i = 0; i < 8; i++)
+        {
+            for(var j=0; j < 8; j++)
+            {
+                if(i == 0 || i == 2 || i == 4 || i == 6) {
+                    if(j == 0 || j == 2 || j == 4 || j == 6) {
+                        chessCaseColor = 'white';
+                    }
+                    else
+                        chessCaseColor = 'black';
+                }
+                else {
+                    if(j == 0 || j == 2 || j == 4 || j == 6) {
+                        chessCaseColor = 'black';
+                    }
+                    else
+                        chessCaseColor = 'white';
+                }
 
-        // rotate and position the plane
-        chessboard.rotation.x = -0.5 * Math.PI;
-        chessboard.position.x = 0;
-        chessboard.position.y = -2;
-        chessboard.position.z = 0;
-
-        // add the plane to the scene
-        scene.add(chessboard);
-
-
-
+                 var chessCaseGeometry  = new THREE.BoxGeometry(10,2,10);
+                 var chessCaseMaterial = new THREE.MeshLambertMaterial({color: chessCaseColor, ambient : chessCaseColor});
+                 var chessCase = new THREE.Mesh(chessCaseGeometry, chessCaseMaterial);
+                 chessCase.position.x = 10*j;
+                 chessCase.position.y = 0;
+                 chessCase.position.z = 10*i;
+                 chessCase.castShadow = false;
+                 if(i == 4 & j == 4)
+                 {
+                    middleCase = chessCase;
+                 }
+                 chessCase.name = 'case ' + i + ' et ' + j;
+                 scene.add(chessCase);
+            }
+        }
+        camera.lookAt(middleCase.position);
+/*
         var spotLight = new THREE.SpotLight(0xffffff);
-        spotLight.position.set(10, 20, 20);
-        spotLight.shadowCameraNear = 20;
-        spotLight.shadowCameraFar = 50;
+        spotLight.position.set(300, 20, 20);
+        spotLight.shadowCameraNear = 200;
+        spotLight.shadowCameraFar = 500;
         spotLight.castShadow = true;
 
         scene.add(spotLight);
+
+        var spotLightTop = new THREE.SpotLight(0xffffff);
+        spotLightTop.position.set(150, 50, 48);
+        spotLightTop.shadowCameraNear = 200;
+        spotLightTop.shadowCameraFar = 500;
+        spotLightTop.castShadow = true;
+
+        scene.add(spotLightTop);
+*/
+        var pionLoader = new THREE.JSONLoader();
+        pionLoader.load( "scripts/pion.js", function(geometry){
+            var material = new THREE.MeshLambertMaterial({color: 'black', ambient : 'gray'});
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+        });
+
+        var tourLoader = new THREE.JSONLoader();
+        tourLoader.load( "scripts/tour.js", function(geometry){
+            var material = new THREE.MeshLambertMaterial({color: 'black', ambient : 'gray'});
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+        });
+
+        var cavalierLoader = new THREE.JSONLoader();
+        cavalierLoader.load( "scripts/cavalier.js", function(geometry){
+            var material = new THREE.MeshLambertMaterial({color: 'black', ambient : 'gray'});
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+        });
+
+        var fouLoader = new THREE.JSONLoader();
+        fouLoader.load( "scripts/fou.js", function(geometry){
+            var material = new THREE.MeshLambertMaterial({color: 'black', ambient : 'gray'});
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+        });
+
+        var reineLoader = new THREE.JSONLoader();
+        reineLoader.load( "scripts/reine.js", function(geometry){
+            var material = new THREE.MeshLambertMaterial({color: 'black', ambient : 'gray'});
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+        });
+
+        var roiLoader = new THREE.JSONLoader();
+        roiLoader.load( "scripts/roi.js", function(geometry){
+            var material = new THREE.MeshLambertMaterial({color: 'black', ambient : 'gray'});
+            mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+        });
+
+
+
+        var ambientLight = new THREE.AmbientLight(0xffffff);
+        ambientLight.position.set(10, 20, 20);
+        ambientLight.shadowCameraNear = 20;
+        ambientLight.shadowCameraFar = 50;
+        //ambientLight.castShadow = true;
+
+        scene.add(ambientLight);
+
+
 
         // call the render function, after the first render, interval is determined
         // by requestAnimationFrame
@@ -65,6 +169,7 @@
      * Called when the scene needs to be rendered. Delegates to requestAnimationFrame
      * for future renders
      */
+
     function render() {
         // render using requestAnimationFrame
         requestAnimationFrame(render);
